@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_PageBuilder:etc/content_type.xsd">
+    <type name="products">
+        <appearances>
+            <appearance name="carousel">
+                <elements>
+                    <element name="main">
+                        <attribute name="slides_to_show" source="data-slides-show"/>
+                        <attribute name="slides_to_show_tab" source="data-slides-show-tab"/>
+                        <attribute name="slides_to_show_m" source="data-slides-show-m"/>
+                        <attribute name="slides_to_show_sm" source="data-slides-show-sm"/>
+                    </element>
+                </elements>
+            </appearance>
+        </appearances>
+    </type>
+</config>

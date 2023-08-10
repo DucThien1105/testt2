@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.top">
+            <block class="Magento\Cms\Block\Block" name="product.static.block" after="-" >
+                <arguments>
+                    <argument name="block_id" xsi:type="string">Banner</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <move element="page.main.title" destination="product.info.main" before="-" />
+        <move element="breadcrumbs" destination="page.top" after="product.static.block" />
+        <move element="product.info.review" destination="product.info.main" after="page.main.title" />
+        <move element="product.price.final" destination="product.info.price"
+            before="product.info.stock.sku" />
+        <move element="product.info.addto" destination="product.info.options.wrapper.bottom"
+            after="product.info.addtocart.additional" />
+
+        <referenceBlock name="product.info.details">
+            <block class="Magento\Catalog\Block\Product\View" name="custom-tab"
+                template="product/view/custom_tab.phtml" group="detailed_info">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">CUSTOM</argument>
+                    <argument name="sort_order" xsi:type="string">20</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <referenceBlock name="product.info.main">
+            <block class="Magento\Catalog\Block\Product\View" name="custom.att"
+                template="product/view/custom_att.phtml" after="-">
+            </block>
+        </referenceBlock>
+    </body>
+</page>                                         

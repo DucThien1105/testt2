@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="DefaultWYSIWYGValidator">
+        <arguments>
+            <argument name="allowedAttributes" xsi:type="array">
+                <item name="data-slides-show" xsi:type="string">data-slides-show</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Block\Product\ImageFactory">
+        <plugin name="DucThien_theme::fix_img_url" type="DucThien\Theme\Plugin\Magento\Catalog\Block\Product\Image" sortOrder="10" />
+    </type>
+</config>

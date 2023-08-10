@@ -1,0 +1,115 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+// Hiển thị số filter đang được kích hoạt 
+$currentFiltersCount = count($block->getLayer()->getState()->getFilters());
+?>
+
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter">
+        <div class="block-title filter-title">
+            <?php if ($currentFiltersCount) : ?>
+                <span class="filter-count"><?= $currentFiltersCount ?></span>
+            <?php endif; ?>
+            <strong><?= $block->escapeHtml(__('Filter')) ?></strong>
+        </div>
+
+        <div class="block-content filter-content">
+            <?= $block->getChildHtml('state') ?>
+
+            <?php if ($currentFiltersCount) : ?>
+                <div class="block-actions filter-actions">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear"><span><?= $block->escapeHtml(__('Clear All')) ?></span></a>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($block->getFilters() as $filter) : ?>
+                <?php if (!$wrapOptions) : ?>
+                    <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Shopping Options')) ?></strong>
+                    <dl class="filter-options" id="narrow-by-list">
+                    <?php $wrapOptions = true;
+                endif; ?>
+                    <?php if ($filter->getItemsCount()) : ?>
+                        <div class="filter-option">
+                        <dt role="heading" aria-level="3" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></dt>
+                        <dd class="filter-options-content"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?></dd>
+                        </div> 
+                    <?php endif; ?>
+            <?php endforeach; ?>
+            <?php if ($wrapOptions) : ?>
+                </dl>
+            <?php endif; ?>
+        </div>
+        <script>
+            var toggleBody= document.querySelector('body');
+
+            var toggleNav= document.querySelector('.nav-toggle');
+            var toggleInput= document.querySelector('.block-search');
+            
+            var toggleFilter = document.querySelector('.filter');
+            var toggleIcon = document.querySelector('.filter-title');
+
+            toggleIcon.addEventListener('click', function() {
+                toggleIcon.classList.toggle('active-after');
+                toggleBody.classList.toggle('filter-active-body');
+                toggleNav.classList.toggle('filter-active-nav');
+                toggleInput.classList.toggle('filter-active-input');
+            });
+
+            function handleSortByText() {
+                var options = document.querySelectorAll('#sorter option');
+                var screenWidth = window.innerWidth;
+
+                options.forEach(function(option) {
+                    var originalText = option.getAttribute('data-original-text');
+                    if (screenWidth < 640) {
+                        if (!originalText) {
+                            originalText = option.textContent.trim();
+                            option.setAttribute('data-original-text', originalText);
+                        }
+                option.textContent = option.textContent.replace('Sort By', '').trim();
+                    } else {
+                        if (originalText) {
+                            option.textContent = originalText;
+                            option.removeAttribute('data-original-text');
+                        }
+                    }
+                });
+            }
+            function handleShowPerPageText() {
+                var options = document.querySelectorAll('#limiter option');
+                var screenWidth = window.innerWidth;
+
+                options.forEach(function(option) {
+                    var originalText = option.getAttribute('data-original-text');
+                    if (screenWidth < 640) {
+                        if (!originalText) {
+                            originalText = option.textContent.trim();
+                            option.setAttribute('data-original-text', originalText);
+                        }
+                option.textContent = option.textContent.replace('Show', '');
+                option.textContent = option.textContent.replace('per page', '').trim();
+                    } else {
+                        if (originalText) {
+                            option.textContent = originalText;
+                            option.removeAttribute('data-original-text');
+                        }
+                    }
+                });
+            }
+            handleSortByText();
+            handleShowPerPageText();
+            window.addEventListener('resize', handleSortByText);
+            window.addEventListener('resize', handleShowPerPageText);
+        </script>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+<?php $_product = $block->getProduct(); ?>
+<ol class="policy-product"> 
+    <?php if ($_product->getData('freeshipping') == '1'):?>
+        <li class="free-shipping">Free Shipping</li>
+    <?php endif; ?>
+    <?php if ($_product->getData('freereturns') == '1'):?>
+        <li class="free-returns">Hassle Free Returns</li>
+    <?php endif; ?>
+</ol>

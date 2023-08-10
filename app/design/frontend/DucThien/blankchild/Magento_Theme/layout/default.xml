@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.panel" remove="true" />
+        <referenceBlock name="advanced-search-link" remove="true" />
+        <move element="navigation.sections" destination="header-wrapper" before="minicart" />
+        <move element="breadcrumbs" destination="main" before="-" />
+        <move element="page.main.title" destination="main" before="-" after="breadcrumbs" />
+        <referenceBlock name="newsletter_head_components" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true" />
+        <referenceBlock name="footer_links" remove="true" />
+        <referenceContainer name="content">
+            <block class="Magento\Cms\Block\Block" name="category.static.block" ifconfig="magento/banner/enable">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">Banner</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+    </body>
+</page>
